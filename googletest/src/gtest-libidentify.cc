@@ -1,4 +1,4 @@
-// Copyright 2006, Google Inc.
+// Copyright 2017, Google Inc.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -26,15 +26,43 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+// Author: janwilmans@gmail.com (Jan Wilmans)
+//
 
-#include <stdio.h>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <vector>
 
-#include "gtest/gtest.h"
-#include "gtest/gtest-libidentify.h"
+namespace LibIdentify {
 
-GTEST_API_ int main(int argc, char **argv) {
-  printf("Running main() from gtest_main.cc\n");
-  LibIdentify::report("1.0", argc, argv);           // GTEST_VERSION ? how to get it in here?
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+static const char* category_unspecified = "unspecified";
+static const char* category_testframework = "testframework";
+
+// to make sure these remain unique, maintain this list in the LibIdentify repository, pull requests welcome!
+// see https://github.com/janwilmans/LibIdentify/blob/master/libidentify.h
+static const char* framework_boosttest = "Boost.Test";
+static const char* framework_catch = "Catch";
+static const char* framework_googletest = "Google Test";
+
+void report(const std::string& description, const std::string& category, const std::string& framework, const std::string& version, int argc, char* argv[])
+{
+    for (int i = 0; i < argc; ++i)
+    {
+        auto argument = std::string(argv[i]);
+        if (argument == "--libidentify")
+        {
+            std::cout << std::left << std::setw(16) << "description: " << description << "\n";
+            std::cout << std::left << std::setw(16) << "category: " << category << "\n";
+            std::cout << std::left << std::setw(16) << "framework: " << framework << "\n";
+            std::cout << std::left << std::setw(16) << "version: " << version << std::endl;
+            exit(0);
+        }
+    }
+}
+
+void report(const std::string& version, int argc, char* argv[])
+{
+    report(framework_googletest, category_testframework, framework_googletest, version, argc, arv);
 }
