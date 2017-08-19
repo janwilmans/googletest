@@ -43,7 +43,7 @@ void report(const std::string& description, const std::string& category, const s
 {
     for (int i = 0; i < argc; ++i)
     {
-        auto argument = std::string(argv[i]);
+        std::string argument(argv[i]);
         if (argument == "--libidentify")
         {
             std::cout << std::left << std::setw(16) << "description: " << description << "\n";
@@ -63,5 +63,7 @@ void report(const std::string& description, const std::string& category, const s
 
 void report(const std::string& version, int argc, char* argv[])
 {
-    report(framework_googletest, category_testframework, framework_googletest, version, argc, arv);
+    report(framework_googletest, category_testframework, framework_googletest, version, argc, argv);
+}
+
 }

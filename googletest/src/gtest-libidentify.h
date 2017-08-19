@@ -48,3 +48,5 @@ static const char* framework_googletest = "Google Test";
 
 void report(const std::string& version, int argc, char* argv[]);
 void report(const std::string& description, const std::string& category, const std::string& framework, const std::string& version, int argc, char* argv[]);
+
+}
