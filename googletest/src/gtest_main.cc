@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 #include "gtest/gtest.h"
-#include "gtest/gtest-libidentify.h"
+#include "gtest-libidentify.h"
 
 GTEST_API_ int main(int argc, char **argv) {
   printf("Running main() from gtest_main.cc\n");
